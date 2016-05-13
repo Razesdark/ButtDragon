@@ -7,7 +7,8 @@
 using namespace std;
 
 Projectile::Projectile() {
-
+  this->pos_x = -1000.0f;
+  this->pos_y = -1000.0f;
 }
 void Projectile::SetOwner(ProjectileOwner ownr) {
   this->owner = ownr;

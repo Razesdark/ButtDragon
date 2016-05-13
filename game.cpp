@@ -14,8 +14,6 @@
 
 using namespace std;
 
-
-
 bool game_running = true;
 
 SDL_Window* window = NULL;
@@ -35,7 +33,7 @@ int initialize_game(int SCREEN_HEIGHT, int SCREEN_WIDTH) {
   // --------------------------------------------------------
 
   // Initialize SDL
-  if ( SDL_Init( SDL_INIT_EVERYTHING ) < 0 ) {
+  if ( SDL_Init( SDL_INIT_VIDEO ) < 0 ) {
     printf("SDL Could not initalize! ER: %s\n", SDL_GetError());
     return 1;
   }
@@ -64,6 +62,8 @@ void initialize_assets() {
   player->SetWindow(screenSurface);
   player->SetSprite("assets/spacedragon1.bmp", true);
   player->Activate();
+  player->pos_x = 0;
+  player->pos_y = 0;
 
 
   // Initialize Background assets
@@ -83,6 +83,7 @@ void run_game() {
   }
 }
 void end_game() {
+  free(player);
   SDL_Delay( 1000 );
   SDL_DestroyWindow( window );
   SDL_Quit();
@@ -113,13 +114,17 @@ void inline game_loop() {
       stars[i].Resolve();
 
     // Resolve enemies
-    for(int i = 0; i < ENEMIES_ON_SCREEN; i++)
+    for(int i = 0; i < ENEMIES_ON_SCREEN; i++){
       enemies[i].Resolve();
+      player->CheckOffensiveCollision((Enemy *)&enemies[i]);
+      if (player->CheckDefensiveCollision((Enemy *)&enemies[i]) == true) {
+        game_running = false;
+      }
+    }
 
 
     // Resolves player and players projectiles
     player->Resolve();
-
 
 
     // Draw to screen

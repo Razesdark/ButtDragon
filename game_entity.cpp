@@ -7,7 +7,6 @@
 using namespace std;
 
 GameEntity::GameEntity() {
-  std::cout << "CREATING GAMEENTITY" << endl;
   this->pos_x = 0;
   this->pos_y = 0;
   this->vector_x = 0;

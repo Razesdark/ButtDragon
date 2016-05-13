@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "player.h"
+#include "enemy.h"
 #ifndef PROJECTILE
   #include "projectile.h"
 #endif
@@ -80,6 +81,37 @@ void Player::ReadKeyboard() {
     this->vector_x = 0.0f;
 
 }
+
+void Player::CheckOffensiveCollision(Enemy *enemy) {
+  if(!enemy->IsActive())
+    return;
+
+  for(int i = 0; i < MAX_SHOTS_FOR_PLAYER; i++) {
+    float shot_center_x = this->Shots[i].pos_x + this->Shots[i]._sprite->w/2;
+    float shot_center_y = this->Shots[i].pos_y + this->Shots[i]._sprite->h/2;
+
+    if( (shot_center_x > enemy->pos_x && shot_center_x < enemy->pos_x + enemy->_sprite->w) &&
+        (shot_center_y > enemy->pos_y && shot_center_y < enemy->pos_y + enemy->_sprite->h)) {
+          cout << "HIIIIIIT!!!" << endl;
+          enemy->Deactivate();
+          this->Shots[i].Deactivate();
+    }
+  }
+}
+
+bool Player::CheckDefensiveCollision(Enemy *enemy) {
+  for(int i = 0; i < MAX_SHOTS_FOR_ENEMY; i++) {
+    float shot_center_x = enemy->Shots[i].pos_x + this->Shots[i]._sprite->w/2;
+    float shot_center_y = enemy->Shots[i].pos_y + this->Shots[i]._sprite->h/2;
+    if((shot_center_x > this->pos_x && shot_center_x < (this->pos_x + this->_sprite->w)) && ((shot_center_y > this->pos_y && shot_center_y < (this->pos_y + this->_sprite->h)))) {
+      enemy->Shots[i].Deactivate();
+      return true;
+    }
+
+    return false;
+  }
+}
+
 
 void Player::Shoot() {
   for(int i = 0; i < MAX_SHOTS_FOR_PLAYER; i++) {

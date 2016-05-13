@@ -1,3 +1,5 @@
+#ifndef GAME_ENTITY_DEFINED
+#define GAME_ENTITY_DEFINED 1
 #include <SDL2/SDL.h>
 #include <string>
 
@@ -27,3 +29,4 @@ class GameEntity {
     void Activate();
     void Deactivate();
 };
+#endif
