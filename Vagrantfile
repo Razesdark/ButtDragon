@@ -83,4 +83,5 @@ Vagrant.configure(2) do |config|
     ./configure
     make
     sudo make install
-end
+    SHELL
+  end
