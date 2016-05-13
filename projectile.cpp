@@ -14,12 +14,11 @@ void Projectile::SetOwner(ProjectileOwner ownr) {
 }
 
 void Projectile::Resolve() {
-
-  if (this->_window == NULL || this->_sprite == NULL || this->active != true)
+  if (this->CannotBeResolved())
     return;
+
     if(!this->IsOnScreen()) {
-      cout << "Deactivating Projectile" << endl;
       this->Deactivate();
     }
   GameEntity::Resolve();
-} 
+}

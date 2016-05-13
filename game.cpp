@@ -2,13 +2,16 @@
 #include <string>
 #include <SDL2/SDL.h>
 
-#include "game.h"
 #ifndef GAME_ENTITY
-  #include "game_entity.h"
+#include "game_entity.h"
 #endif
-#include "stars.h"
 
+#include "game.h"
+#include "stars.h"
+#include "enemy.h"
 #include "player.h"
+
+
 using namespace std;
 
 
@@ -21,6 +24,8 @@ SDL_Event e;
 
 Player* player;
 Star stars[STARS_ON_SCREEN];
+Enemy enemies[ENEMIES_ON_SCREEN];
+
 void inline game_loop();
 
 int initialize_game(int SCREEN_HEIGHT, int SCREEN_WIDTH) {
@@ -66,6 +71,10 @@ void initialize_assets() {
     stars[i].PostInitialize(screenSurface);
   }
 
+  for(int i = 0; i < ENEMIES_ON_SCREEN; i++) {
+    enemies[i].PostInitialize(screenSurface);
+  }
+
 }
 
 void run_game() {
@@ -103,12 +112,17 @@ void inline game_loop() {
     for(int i = 0; i < STARS_ON_SCREEN; i++)
       stars[i].Resolve();
 
+    // Resolve enemies
+    for(int i = 0; i < ENEMIES_ON_SCREEN; i++)
+      enemies[i].Resolve();
+
 
     // Resolves player and players projectiles
     player->Resolve();
 
-    // Resolve enemies
 
+
+    // Draw to screen
     SDL_UpdateWindowSurface( window );
     check_keyboard();
 }

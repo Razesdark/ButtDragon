@@ -21,6 +21,7 @@ class GameEntity {
     void SetSprite(std::string, bool);
     void Resolve(void);
 
+    inline bool CannotBeResolved();
     bool IsOnScreen();
     bool IsActive();
     void Activate();

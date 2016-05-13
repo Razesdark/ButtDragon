@@ -49,6 +49,11 @@ Vagrant.configure(2) do |config|
   #
   #   # Customize the amount of memory on the VM:
     vb.memory = "512"
+    if RUBY_PLATFORM =~ /darwin/
+      vb.customize ["modifyvm", :id, '--audio', 'coreaudio', '--audiocontroller', 'hda'] # choices: hda sb16 ac97
+    elsif RUBY_PLATFORM =~ /mingw|mswin|bccwin|cygwin|emx/
+      vb.customize ["modifyvm", :id, '--audio', 'dsound', '--audiocontroller', 'ac97']
+    end
   end
   #
   # View the documentation for the provider you are using for more
@@ -78,5 +83,4 @@ Vagrant.configure(2) do |config|
     ./configure
     make
     sudo make install
-  SHELL
 end

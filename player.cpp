@@ -10,7 +10,6 @@
 
 using namespace std;
 Player::Player() {
-  cout << "CONSTRUCT Player::Player" << endl;
   key_down = false;
   key_up = false;
   key_left = false;
@@ -83,10 +82,8 @@ void Player::ReadKeyboard() {
 }
 
 void Player::Shoot() {
-  cout << "Shoot" << endl;
   for(int i = 0; i < MAX_SHOTS_FOR_PLAYER; i++) {
     if(!this->Shots[i].IsActive()) {
-      cout << "ING!!!!!" <<endl;
       this->Shots[i].pos_x = this->pos_x + ( this->_sprite->w / 2 );
       this->Shots[i].pos_y = this->pos_y + ( this->_sprite->h / 2 );
       this->Shots[i].Activate();

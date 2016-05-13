@@ -42,11 +42,15 @@ bool GameEntity::IsOnScreen(void) {
     return true;
 }
 
+inline bool GameEntity::CannotBeResolved() {
+  return (this->_window == NULL || this->_sprite == NULL || this->active != true);
+}
+
 void GameEntity::Resolve(void) {
   // -----------------------------------------------------
   //    Update the current object and draw it on screen
   // ------------------------------------------------------
-  if (this->_window == NULL || this->_sprite == NULL || this->active != true)
+  if (this->CannotBeResolved())
     return;
 
   this->pos_x += this->vector_x;
