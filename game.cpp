@@ -16,8 +16,7 @@ using namespace std;
 
 bool game_running = true;
 
-SDL_Window* window = NULL;
-SDL_Surface* screenSurface = NULL;
+
 SDL_Event e;
 
 Player* player;
@@ -26,37 +25,6 @@ Enemy enemies[ENEMIES_ON_SCREEN];
 
 void inline game_loop();
 
-int initialize_game(int SCREEN_HEIGHT, int SCREEN_WIDTH) {
-  // --------------------------------------------------------
-  //  Initializes the game engine.
-  //  This function is called from main.cpp, and will set the size of the screen
-  // --------------------------------------------------------
-
-  // Initialize SDL
-  if ( SDL_Init( SDL_INIT_VIDEO ) < 0 ) {
-    printf("SDL Could not initalize! ER: %s\n", SDL_GetError());
-    return 1;
-  }
-
-  window = SDL_CreateWindow(  "Tjosegame",
-                              SDL_WINDOWPOS_UNDEFINED,
-                              SDL_WINDOWPOS_UNDEFINED,
-                              SCREEN_WIDTH,
-                              SCREEN_HEIGHT,
-                              SDL_WINDOW_SHOWN
-                           );
-
-  if (window == NULL) {
-    printf("Could not create window! ER: %s\n", SDL_GetError() );
-    return 0;
-  } else {
-    screenSurface = SDL_GetWindowSurface( window );
-    SDL_FillRect( screenSurface, NULL, SDL_MapRGB( screenSurface->format, 0xFF, 0xFF, 0xFF ) );
-    SDL_UpdateWindowSurface( window );
-  }
-
-  return 0;
-}
 void initialize_assets() {
   player = new Player();
   player->SetWindow(screenSurface);

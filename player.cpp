@@ -82,9 +82,9 @@ void Player::ReadKeyboard() {
 
 }
 
-void Player::CheckOffensiveCollision(Enemy *enemy) {
+bool Player::CheckOffensiveCollision(Enemy *enemy) {
   if(!enemy->IsActive())
-    return;
+    return false;
 
   for(int i = 0; i < MAX_SHOTS_FOR_PLAYER; i++) {
     float shot_center_x = this->Shots[i].pos_x + this->Shots[i]._sprite->w/2;
@@ -92,11 +92,11 @@ void Player::CheckOffensiveCollision(Enemy *enemy) {
 
     if( (shot_center_x > enemy->pos_x && shot_center_x < enemy->pos_x + enemy->_sprite->w) &&
         (shot_center_y > enemy->pos_y && shot_center_y < enemy->pos_y + enemy->_sprite->h)) {
-          cout << "HIIIIIIT!!!" << endl;
-          enemy->Deactivate();
           this->Shots[i].Deactivate();
+          return true;
     }
   }
+  return false;
 }
 
 bool Player::CheckDefensiveCollision(Enemy *enemy) {
@@ -108,8 +108,9 @@ bool Player::CheckDefensiveCollision(Enemy *enemy) {
       return true;
     }
 
-    return false;
+
   }
+  return false;
 }
 
 

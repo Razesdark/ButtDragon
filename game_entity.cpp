@@ -1,8 +1,10 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 #include <string>
-
+#include <typeinfo>
 #include "game_entity.h"
+
+#define quote(x) #x
 
 using namespace std;
 
@@ -66,6 +68,8 @@ void GameEntity::Activate() {
   this->active = true;
 }
 void GameEntity::Deactivate() {
+  cout << "DEACTIVATE";
+  cout << quote(this) << endl;
   this->active = false;
 }
 bool GameEntity::IsActive() {

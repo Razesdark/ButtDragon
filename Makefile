@@ -11,12 +11,12 @@ EXE = runme
 
 all: $(EXE)
 
-$(EXE): main.o game.o game_entity.o player.o projectile.o stars.o enemy.o
+$(EXE): main.o level.o game_entity.o player.o projectile.o stars.o enemy.o
 	$(CXX) $^ $(LDFLAGS) -o $@
 
 main.o: main.cpp
 	$(CXX) $(CXXFLAGS) $< -o $@
-game.o: game.cpp
+level.o: level.cpp
 	$(CXX) $(CXXFLAGS) $< -o $@
 game_entity.o: game_entity.cpp
 		$(CXX) $(CXXFLAGS) $< -o $@

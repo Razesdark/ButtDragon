@@ -11,6 +11,8 @@
   #include "projectile.h"
 #endif
 
+#define PLAYER_DEFINED 1
+
 #define MAX_SHOTS_FOR_PLAYER 5
 
 class Player : public GameEntity {
@@ -19,7 +21,7 @@ class Player : public GameEntity {
     void Resolve(void);
     void KeyboardEvent(SDL_KeyboardEvent*);
     void SetWindow(SDL_Surface*);
-    void CheckOffensiveCollision(Enemy*);
+    bool CheckOffensiveCollision(Enemy*);
     bool CheckDefensiveCollision(Enemy*);
   private:
     bool key_down, key_up, key_left, key_right, shooting;
