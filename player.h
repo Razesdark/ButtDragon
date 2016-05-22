@@ -28,5 +28,6 @@ class Player : public GameEntity {
     Projectile Shots[MAX_SHOTS_FOR_PLAYER];
     void ReadKeyboard(void);
     void Shoot(void);
+    void KeepOnScreen(void);
 
 };

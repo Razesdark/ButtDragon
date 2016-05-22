@@ -25,7 +25,9 @@ Player::Player() {
 
 }
 void Player::Resolve() {
-  this->ReadKeyboard();
+  this->ReadKeyboard(); 
+  this->KeepOnScreen();
+
 
   for(int i = 0; i < MAX_SHOTS_FOR_PLAYER; i++) {
     this->Shots[i].Resolve();
@@ -81,7 +83,12 @@ void Player::ReadKeyboard() {
     this->vector_x = 0.0f;
 
 }
-
+void Player::KeepOnScreen(void){
+  if (this->pos_x < 0) this->vector_x=0.1f; 
+  if (this->pos_x + this->_sprite->w > this->_window->w) this->vector_x=-0.1f;
+  if (this->pos_y < 0) this->vector_y=0.1f;
+  if (this->pos_y + this->_sprite->h > this->_window->h) this->vector_y=-0.1f;
+}
 bool Player::CheckOffensiveCollision(Enemy *enemy) {
   if(!enemy->IsActive())
     return false;
